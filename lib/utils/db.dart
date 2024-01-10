@@ -25,4 +25,10 @@ class DB {
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
+
+  static Future<List<Map<String, dynamic>>> getData(String table) async {
+    final db = await DB.database();
+
+    return db.query(table);
+  }
 }

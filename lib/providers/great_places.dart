@@ -8,6 +8,23 @@ import 'package:flutter/material.dart';
 class GreatPlaces with ChangeNotifier {
   List<Place> _items = [];
 
+  Future<void> loadPlaces() async {
+    final dataList = await DB.getData('places');
+
+    _items = dataList
+        .map(
+          (item) => Place(
+            id: item['id'],
+            title: item['title'],
+            image: File(item['image']),
+            location: PlaceLocation(latitude: 1, longitude: 1),
+          ),
+        )
+        .toList();
+
+    notifyListeners();
+  }
+
   List<Place> get items {
     return [..._items];
   }
