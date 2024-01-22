@@ -1,3 +1,4 @@
+import 'package:curso_flutter_places/screens/map_screen.dart';
 import 'package:curso_flutter_places/utils/location.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart';
@@ -23,6 +24,17 @@ class _LocationInputState extends State<LocationInput> {
     setState(() {
       _previewImageUrl = staticMapImageUrl;
     });
+  }
+
+  Future<void> _selectOnMap() async {
+    final selectedLocation = await Navigator.of(context).push(
+      MaterialPageRoute(
+        fullscreenDialog: true,
+        builder: (context) => MapScreen(),
+      ),
+    );
+
+    if (selectedLocation == null) return;
   }
 
   @override
@@ -64,7 +76,7 @@ class _LocationInputState extends State<LocationInput> {
                 'Selecione',
                 style: TextStyle(color: Theme.of(context).colorScheme.primary),
               ),
-              onPressed: () {},
+              onPressed: _selectOnMap,
             )
           ],
         )
