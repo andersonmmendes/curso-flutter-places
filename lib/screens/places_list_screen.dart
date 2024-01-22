@@ -26,20 +26,23 @@ class PlacesListScreen extends StatelessWidget {
                 ConnectionState.waiting
             ? const Center(child: CircularProgressIndicator())
             : Consumer<GreatPlaces>(
-                builder: (context, greatPlaces, child) =>
-                    greatPlaces.itemsCount == 0
-                        ? child!
-                        : ListView.builder(
-                            itemCount: greatPlaces.itemsCount,
-                            itemBuilder: (context, index) => ListTile(
-                              leading: CircleAvatar(
-                                backgroundImage: FileImage(
-                                    greatPlaces.itemByIndex(index).image),
-                              ),
-                              title: Text(greatPlaces.itemByIndex(index).title),
-                              onTap: () {},
-                            ),
+                builder: (context, greatPlaces, child) => greatPlaces
+                            .itemsCount ==
+                        0
+                    ? child!
+                    : ListView.builder(
+                        itemCount: greatPlaces.itemsCount,
+                        itemBuilder: (context, index) => ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage:
+                                FileImage(greatPlaces.itemByIndex(index).image),
                           ),
+                          title: Text(greatPlaces.itemByIndex(index).title),
+                          subtitle: Text(
+                              greatPlaces.itemByIndex(index).location.address),
+                          onTap: () {},
+                        ),
+                      ),
                 child: const Center(
                   child: Text('Não há lugares ainda'),
                 ),
